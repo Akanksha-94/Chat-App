@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 const Sidebar = ({selectedUser, setSelectedUser}) => {
   const navigate =useNavigate();
+  // Sort users so selected user is at the top
+  const sortedUsers = selectedUser ? [
+    ...userDummyData.filter(user => user._id === selectedUser._id),
+    ...userDummyData.filter(user => user._id !== selectedUser._id)
+  ] : userDummyData;
   return (
     <div className={`bg-[#8185B2]/10 h-full p-5 rounded-r-xl overflow-y-scroll text-white ${selectedUser ? "max-md:hidden" : ''}`}>
       <div className='pd-5'>
@@ -29,7 +34,7 @@ const Sidebar = ({selectedUser, setSelectedUser}) => {
       </div>
 
       <div className='flex flex-col'>
-      {userDummyData.map((user, index) => (
+      {sortedUsers.map((user, index) => (
         <div onClick={()=> {setSelectedUser(user)}} key={index} className={`relative flex items-center gap-2 p-2 pl-4 rounded cursor-pointer max-sm:text-sm ${selectedUser ?._id === user._id && 'bg-[#282142]/50'}`}>
           <img src={user?.profilePic || assets.avatar_icon} alt={user.fullName} className="w-[35px] aspect-[1/1] rounded-full " />
           <div className="flex flex-col leading-5">
