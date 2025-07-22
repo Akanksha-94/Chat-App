@@ -1,8 +1,18 @@
 import React from 'react'
 import assets, { userDummyData } from '../assets/assets'
 import { useNavigate } from 'react-router-dom';
+import { ChatContext } from '../../context/ChatContext';
+import { AuthContext } from '../../context/AuthContext';
 
-const Sidebar = ({selectedUser, setSelectedUser}) => {
+const Sidebar = () => {
+
+  const {getUsers, users,selectedUser ,setSelectedUser,unseenMessages,setUnseenMessages
+
+   } = useContext(ChatContext);
+
+  const {logout, onlineUsers} = useContext(AuthContext)
+
+
   const navigate =useNavigate();
   // Sort users so selected user is at the top
   const sortedUsers = selectedUser ? [
